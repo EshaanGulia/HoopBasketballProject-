@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+/* Leaflet map styles */
+.leaflet-container {
+  background: #f1f1f1;
+}
+/* Global reset */

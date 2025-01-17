@@ -66,3 +66,17 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* Reset global margins and padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%; /* Full width */
+  min-height: 100vh; /* Full height */
+  font-family: 'Roboto', sans-serif; /* Consistent font */
+}
+
+#root {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
