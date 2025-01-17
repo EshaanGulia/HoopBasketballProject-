@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import { AppBar, Toolbar, Button, Box } from "@mui/material";
 
 const Navbar: React.FC = () => {
   return (
@@ -9,31 +9,29 @@ const Navbar: React.FC = () => {
         backgroundColor: "#fff", // White background
         color: "#000", // Black text color
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Subtle shadow
-        width: "100%", // Full-width navbar
       }}
     >
       <Toolbar
         sx={{
           display: "flex",
           justifyContent: "space-between", // Space between logo and links
-          alignItems: "center",
-          padding: "0 20px", // Horizontal padding for inner content
-          width: "100%",
+          alignItems: "center", // Align items vertically
+          padding: "10px 40px", // Padding for spacing
         }}
       >
-        {/* Left: Logo */}
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: "bold",
-            fontFamily: "'Roboto', sans-serif",
+        {/* Left: Logo Image */}
+        <img
+          src="https://cdn.vectorstock.com/i/500p/74/26/basketball-ball-icon-vector-52387426.jpg"
+          alt="Basketball Logo"
+          style={{
+            height: "50px", // Adjust image size
+            width: "50px",
+            objectFit: "contain",
           }}
-        >
-          Hoop
-        </Typography>
+        />
 
         {/* Right: Navigation Links */}
-        <Box sx={{ display: "flex", gap: "20px" }}>
+        <Box sx={{ display: "flex", gap: "30px" }}>
           <Button
             href="#map"
             sx={{
