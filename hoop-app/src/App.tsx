@@ -1,16 +1,28 @@
 import React from "react";
-import NavBar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import UserProfile from "./components/UserProfile";
 import MapSection from "./components/MapSection";
+import SessionSection from "./components/SessionsSection";
 
 const App: React.FC = () => {
   return (
     <>
-      <NavBar />
-      <HeroSection />
-      <UserProfile />
-      <MapSection />
+      <Navbar />
+      <div
+        style={{
+          paddingTop: "64px", // Matches the navbar height to prevent overlap
+        }}
+      >
+        <div id="hero-section">
+          <HeroSection />
+        </div>
+        <div id="map-section">
+          <MapSection />
+        </div>
+        <div id="session-section">
+          <SessionSection />
+        </div>
+      </div>
     </>
   );
 };

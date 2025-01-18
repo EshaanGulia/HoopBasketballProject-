@@ -1,62 +1,108 @@
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  Modal,
-  Typography,
-  TextField,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Modal, Box, TextField, Button, Typography, Avatar, Menu, MenuItem } from "@mui/material";
+
+interface User {
+  username: string;
+  password: string;
+}
 
 const UserProfileModal: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState<string>("");
-  const [preferredCourt, setPreferredCourt] = useState<string>("Indoor");
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isCreatingProfile, setIsCreatingProfile] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // For profile creation
+  const [loggedInUser, setLoggedInUser] = useState<string | null>(null); // Tracks the logged-in user
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  // Load saved profile from localStorage
-  useEffect(() => {
-    const savedUsername = localStorage.getItem("username");
-    const savedPreferredCourt = localStorage.getItem("preferredCourt");
+  // Mock database for user accounts
+  const [users, setUsers] = useState<User[]>([]);
 
-    if (savedUsername) setUsername(savedUsername);
-    if (savedPreferredCourt) setPreferredCourt(savedPreferredCourt);
-  }, []);
+  const handleSignIn = () => {
+    const user = users.find((u) => u.username === username && u.password === password);
+    if (user) {
+      setLoggedInUser(username);
+      setIsSignedIn(true);
+      setOpen(false);
+      setUsername("");
+      setPassword("");
+    } else {
+      alert("Invalid username or password");
+    }
+  };
 
-  // Save profile settings to localStorage
-  const saveProfile = () => {
-    localStorage.setItem("username", username);
-    localStorage.setItem("preferredCourt", preferredCourt);
-    alert("Profile saved!");
-    setOpen(false); // Close the modal
+  const handleCreateProfile = () => {
+    if (!username || !password || !confirmPassword) {
+      alert("Please fill out all fields.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    const userExists = users.some((u) => u.username === username);
+    if (userExists) {
+      alert("Username already exists");
+      return;
+    }
+    setUsers((prevUsers) => [...prevUsers, { username, password }]);
+    alert(`Profile created for ${username}`);
+    setIsCreatingProfile(false); // Switch back to Sign In
+    setUsername(""); // Clear fields
+    setPassword("");
+    setConfirmPassword("");
+  };
+
+  const handleLogout = () => {
+    setIsSignedIn(false);
+    setLoggedInUser(null);
+    setAnchorEl(null);
   };
 
   return (
-    <Box
-      sx={{
-        position: "absolute", // Positioned relative to the page layout
-        top: "100px", // Lowered by increasing the top value
-        left: "20px", // Aligned to the left
-      }}
-    >
-      {/* Button to Open Modal */}
-      <Button
-        onClick={() => setOpen(true)}
-        sx={{
-          backgroundColor: "#f5f5f5",
-          color: "#000",
-          padding: "10px 20px",
-          borderRadius: "8px",
-          fontWeight: "bold",
-          "&:hover": {
-            backgroundColor: "#e0e0e0",
-          },
-        }}
-      >
-        Create or Sign In
-      </Button>
+    <>
+      {!isSignedIn ? (
+        <Button
+          onClick={() => setOpen(true)}
+          sx={{
+            textTransform: "none",
+            fontWeight: "bold",
+            fontFamily: "Poppins, sans-serif",
+            color: "#000",
+            backgroundColor: "#f0f0f0",
+            border: "1px solid #ddd",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            borderRadius: "8px",
+            padding: "10px 16px",
+            "&:hover": { backgroundColor: "#e0e0e0" },
+          }}
+        >
+          Sign In
+        </Button>
+      ) : (
+        <>
+          <Avatar
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            sx={{
+              cursor: "pointer",
+              backgroundColor: "#000", // Black background instead of blue
+              color: "#fff",
+              fontWeight: "bold",
+            }}
+          >
+            {loggedInUser?.charAt(0).toUpperCase()}
+          </Avatar>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
+          >
+            <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+          </Menu>
+        </>
+      )}
 
-      {/* Modal for Profile Creation */}
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box
           sx={{
@@ -65,57 +111,77 @@ const UserProfileModal: React.FC = () => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "300px",
-            backgroundColor: "#fff",
-            padding: "20px",
+            bgcolor: "white",
+            p: 4,
             borderRadius: "8px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
           }}
         >
           <Typography
             variant="h6"
-            sx={{
-              marginBottom: "20px",
-              textAlign: "center",
-              fontWeight: "bold",
-            }}
+            sx={{ marginBottom: "10px", fontWeight: "bold", textAlign: "center" }}
           >
-            Create Profile
+            {isCreatingProfile ? "Create Profile" : "Sign In"}
           </Typography>
           <TextField
-            label="Username"
-            variant="outlined"
             fullWidth
+            name="username"
+            label="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            sx={{ marginBottom: "15px" }}
+            sx={{ marginBottom: "10px" }}
           />
-          <Select
-            value={preferredCourt}
-            onChange={(e) => setPreferredCourt(e.target.value)}
+          <TextField
             fullWidth
-            displayEmpty
-            sx={{ marginBottom: "15px" }}
-          >
-            <MenuItem value="Indoor">Indoor</MenuItem>
-            <MenuItem value="Outdoor">Outdoor</MenuItem>
-          </Select>
+            name="password"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{ marginBottom: isCreatingProfile ? "10px" : "20px" }}
+          />
+          {isCreatingProfile && (
+            <TextField
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              sx={{ marginBottom: "20px" }}
+            />
+          )}
           <Button
-            variant="contained"
+            onClick={isCreatingProfile ? handleCreateProfile : handleSignIn}
             fullWidth
-            onClick={saveProfile}
             sx={{
-              backgroundColor: "#000",
+              textTransform: "none",
+              backgroundColor: "#000", // Black background
               color: "#fff",
-              "&:hover": {
-                backgroundColor: "#333",
-              },
+              fontWeight: "bold",
+              "&:hover": { backgroundColor: "#333" }, // Slightly lighter black on hover
+              marginBottom: "10px",
             }}
           >
-            Save Profile
+            {isCreatingProfile ? "Create Profile" : "Sign In"}
           </Button>
+          <Typography
+            variant="body2"
+            sx={{
+              textAlign: "center",
+              color: "#007bff",
+              cursor: "pointer",
+              "&:hover": { textDecoration: "underline" },
+            }}
+            onClick={() => setIsCreatingProfile(!isCreatingProfile)}
+          >
+            {isCreatingProfile
+              ? "Already have an account? Sign In"
+              : "Don't have an account? Create Profile"}
+          </Typography>
         </Box>
       </Modal>
-    </Box>
+    </>
   );
 };
 
