@@ -1,13 +1,15 @@
 import React from "react";
-import Navbar from "./components/Navbar";
+import NavBar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
+import UserProfile from "./components/UserProfile";
 import MapSection from "./components/MapSection";
 
 const App: React.FC = () => {
   return (
     <>
-      <Navbar />
+      <NavBar />
       <HeroSection />
+      <UserProfile />
       <MapSection />
     </>
   );
