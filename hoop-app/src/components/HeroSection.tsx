@@ -24,7 +24,7 @@ const HeroSection: React.FC = () => {
         display: "flex", // Flexbox for layout
         justifyContent: "space-between", // Space between left and right
         alignItems: "center", // Vertically center content
-        height: "80vh", // Shorter hero section
+        height: "100vh", // Full viewport height for initial page
         backgroundColor: "#fff", // White background
         padding: "0 40px", // Add horizontal padding
         position: "relative", // For positioning expanded images
@@ -44,7 +44,7 @@ const HeroSection: React.FC = () => {
         </h1>
       </Box>
 
-      {/* Right: Collage with Adjusted Expand-on-Click Feature */}
+      {/* Right: Collage */}
       <Box
         sx={{
           display: "grid",
@@ -65,7 +65,7 @@ const HeroSection: React.FC = () => {
               transition: "all 0.3s ease", // Smooth expansion effect
               transform: expandedImage === image ? "scale(1.3)" : "scale(1)", // Slightly increase size
               zIndex: expandedImage === image ? 10 : 1, // Bring expanded image to the front
-              position: expandedImage === image ? "relative" : "relative", // Maintain layout without fixed positioning
+              position: "relative", // Maintain layout without fixed positioning
               width: "100%", // Maintain container width
               height: expandedImage === image ? "250px" : "200px", // Slightly taller on expand
             }}
