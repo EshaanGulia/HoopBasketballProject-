@@ -190,7 +190,7 @@ const SessionSection: React.FC = () => {
           sx={{
             fontWeight: "bold",
             marginBottom: "20px",
-            color: "#000", // Black text for "Available Sessions"
+            color: "#000", 
           }}
         >
           Available Sessions
@@ -221,7 +221,7 @@ const SessionSection: React.FC = () => {
                     marginTop: "10px",
                     "&:hover": { backgroundColor: "darkgreen" },
                   }}
-                  disabled={session.players === 0} // Disable button if no players are needed
+                  disabled={session.players === 0} 
                 >
                   Join
                 </Button>
@@ -231,7 +231,7 @@ const SessionSection: React.FC = () => {
         ) : (
           <Typography
             sx={{
-              color: "#000", // Black text for "No sessions available yet."
+              color: "#000", 
               fontWeight: "bold",
             }}
           >

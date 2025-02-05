@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
       sx={{
         backgroundColor: "#fff",
         color: "#000",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Light shadow
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", 
         zIndex: 1000,
         height: "64px",
       }}
@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
         <Box
           sx={{
             display: "flex",
-            gap: "30px", // Increase gap for better alignment
+            gap: "30px", 
           }}
         >
           <Link to="hero-section" smooth={true} duration={500} offset={-64}>

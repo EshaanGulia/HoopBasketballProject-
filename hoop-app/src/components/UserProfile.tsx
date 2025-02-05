@@ -12,8 +12,8 @@ const UserProfileModal: React.FC = () => {
   const [isCreatingProfile, setIsCreatingProfile] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // For profile creation
-  const [loggedInUser, setLoggedInUser] = useState<string | null>(null); // Tracks the logged-in user
+  const [confirmPassword, setConfirmPassword] = useState(""); 
+  const [loggedInUser, setLoggedInUser] = useState<string | null>(null); 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   // Mock database for user accounts
@@ -48,8 +48,8 @@ const UserProfileModal: React.FC = () => {
     }
     setUsers((prevUsers) => [...prevUsers, { username, password }]);
     alert(`Profile created for ${username}`);
-    setIsCreatingProfile(false); // Switch back to Sign In
-    setUsername(""); // Clear fields
+    setIsCreatingProfile(false); 
+    setUsername(""); 
     setPassword("");
     setConfirmPassword("");
   };
@@ -86,7 +86,7 @@ const UserProfileModal: React.FC = () => {
             onClick={(e) => setAnchorEl(e.currentTarget)}
             sx={{
               cursor: "pointer",
-              backgroundColor: "#000", // Black background instead of blue
+              backgroundColor: "#000", 
               color: "#fff",
               fontWeight: "bold",
             }}
@@ -156,10 +156,10 @@ const UserProfileModal: React.FC = () => {
             fullWidth
             sx={{
               textTransform: "none",
-              backgroundColor: "#000", // Black background
+              backgroundColor: "#000",
               color: "#fff",
               fontWeight: "bold",
-              "&:hover": { backgroundColor: "#333" }, // Slightly lighter black on hover
+              "&:hover": { backgroundColor: "#333" }, 
               marginBottom: "10px",
             }}
           >

@@ -10,7 +10,7 @@ const App: React.FC = () => {
       <Navbar />
       <div
         style={{
-          paddingTop: "64px", // Matches the navbar height to prevent overlap
+          paddingTop: "64px", 
         }}
       >
         <div id="hero-section">
