@@ -1,1 +1,1 @@
-Hoop is a basketball session scheduling app designed for students at the University of Texas at Dallas (UTD). It allows players to create and join sessions at different courts around campus, making it easy to find pickup games.
+Hoop is a basketball session scheduling website designed for students at the University of Texas at Dallas (UTD). It allows players to create and join sessions at different courts around campus, making it easy to find pickup games.
